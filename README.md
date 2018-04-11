@@ -1,6 +1,6 @@
 # GeoPython Conference 2018
-# Processing Framework: Automating Tasks with Python
-# A QGIS workshop for the GeoPython Conference 2018
+Processing Framework: Automating Tasks with Python
+A QGIS workshop for the GeoPython Conference 2018
  
 ## Getting started
  1. Download and install QGIS 3.x ([Link to the download page]https://www.qgis.org/en/site/forusers/download.html )
