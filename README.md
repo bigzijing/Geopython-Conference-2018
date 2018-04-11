@@ -1,5 +1,5 @@
 # GeoPython Conference 2018
-Processing Framework: Automating Tasks with Python  
+Processing Framework: Automating Tasks with Python\
 A QGIS workshop for the GeoPython Conference 2018
  
 ## Getting started
