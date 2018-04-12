@@ -1,14 +1,13 @@
 # GeoPython Conference 2018
-**Processing Framework: Automating Tasks with Python**
-\
+**Processing Framework: Automating Tasks with Python** \ 
 A QGIS workshop for the GeoPython Conference 2018
  
 ## Getting started
-1. Download and install QGIS 3.x [Download link](https://www.qgis.org/en/site/forusers/download.html)
+1. Download and install QGIS 3.x ([Link to the download page]https://www.qgis.org/en/site/forusers/download.html )
 2. Get the sample data that we will be using from this repository
 3. Fire up QGIS and we're ready! 
  
-Downloading the standalone or OSGeo4W installer will automatically install the correct version of Python as well as Qt and PyQt
+Downloading the standalone or OSGeo4W installer will automatically install the correct version of Python as well as Qt and PyQt.
 
 ## Setting up your development environment
 To try out our hands on examples, the following is required:
@@ -18,22 +17,22 @@ To try out our hands on examples, the following is required:
 * PyQt
  
 **Notes:**
-* This repository contains the hands-on problem sets and tasks that we will try out during the workshop. It also contains the suggested solutions and master script for the analytical task as a whole
+* This repository contains the hands-on problem sets and tasks that we will try out during the workshop. It also contains the suggested solutions and master script for the analytical task as a whole.
 * For QGIS <2.99 users, these problem sets are still workable, but do take note that as QGIS upgraded from QGIS 2.18 to QGIS 3.0.0, there are a lot of changes, including the Python syntax to be upgrade from Python 2.6 to Python 3.6
-* It is still possible to follow this workshop in QGIS 2.18, but do make sure that you are aware of the backwards incompatible changes as many methods and functions were made obsolete or renamed [Version changelog](https://qgis.org/api/api_break.html#qgis_api_break_3_0_QgsGeometryAnalyzer)
+* It is still possible to follow this workshop in QGIS 2.18, but do make sure that you are aware of the backwards incompatible changes as many methods and functions were made obsolete or renamed. You can see the version changelog [here (https://qgis.org/api/api_break.html#qgis_api_break_3_0_QgsGeometryAnalyzer) ]
    
 ## Getting more sample data
 If you want more sample data or resources to further try out QGIS on your own, look no further:
  
-* The PyQGIS Programmer's Guide [here](http://locatepress.com/ppg3)
+* The PyQGIS Programmer's Guide, here: [http://locatepress.com/ppg3]
 * For raster layers to play around with, we can download one of the [Natural Earth rasters](http://www.naturalearthdata.com/downloads/)
-* You can also check out [blog website](http://geometalab.tumblr.com) for some posts on interesting plugins that you can try to play with
+* You can also check out [blog website] for some posts on interesting plugins that you can try to play with
  
 ## Using the QGIS Python Console
-* With QGIS running, open the console by going to `Plugins -> Python Console`, clicking on the `Python Console` button from the 'Plugin toolbar', or simply press `Alt + Ctrl + P` on the keyboard
+* With QGIS running, open the console by going to 'Plugins -> Python Console', clicking on the 'Python Console' button from the 'Plugin toolbar', or simply press Alt + Ctrl + P on the keyboard
 * The toolbar contains the tools *Clear console, Import Class, Run Command, Show Editor, Settings,* and *Help*
 * The built-in code editor can be used alongside the console
-* The QGIS API offers a large number of [Python classes](http://labs.webgeodatavore.com/partage/diagramme_principal.html) that we can use, see [Searchable documentation of PyQGIS classes](http://geoapis.sourcepole.com/qgispyapi/qgsnetworkaccessmanager)
+* The QGIS API offers a large number of [Python classes]((http://labs.webgeodatavore.com/partage/diagramme_principal.html)) that we can use. See [Searchable documentation of PyQGIS classes](http://geoapis.sourcepole.com/qgispyapi/qgsnetworkaccessmanager)
 * For the convenience of the user, the following statements are executed when the consoles is started
 ```python
 from qgis.core import *
@@ -56,7 +55,7 @@ import qgis.utils
 *
 * More details can be found here [link to the tutorial course]
 
-**Doing this over and over again on different files is very tedious, boring and repetitive. Is there a way to automate this? Yes! With the help of scripting and PyQGIS, we can!**\
+** Doing this over and over again on different files is very tedious, boring and repetitive. Is there a way to automate this? Yes! With the help of scripting and PyQGIS, we can!**
 With the click of button to run a script, we can automate this task in mere seconds.\
 This problem will be broken down into smaller problem sets and tasks to break the problem apart. The tasks will be progressive, from getting familiar with the QGIS client to using its Processing toolbox tools, like the Graphical Modeler before moving on to creating your own custom script.
 
@@ -67,14 +66,23 @@ This problem will be broken down into smaller problem sets and tasks to break th
 - **Objective:** To load .gpkg files into QGIS client
 
 #### Task 1.1. Manually adding the Geopackage files into QGIS
-1. 
-2.
-3.
+1. Run QGIS 3.0 on your machine
+2. On the browser panel, look for GeoPackage, right click it and select `New Connection`
+3. Navigate to the folder you saved environment/umgebung.gpkg in and add it
+4. On the browser panel, show the child items of environment/umgebung.gpkg and drag the vector layer onto the map canvas
 
-#### Task 1.2. Creating a Dialog Box to ask for User Input on File to Add
-1.
-2.
-3.
+#### Task 1.2. Creating a Dialog Box to ask for User Input on File to Add\
+We want to write a script to automate tasks, so let us explore asking for user input for file path
+1. On the Menu Toolbar, click `Plugins -> Python Console` or press `Ctrl + Alt + P` on your keyboard to open up the Python Console
+2. You can run Python code on the console to perform various tasks, try creating a file dialog box that asks for user input on the file path
+3. `envPath = QFileDialog.getOpenFileName(QFileDialog(), "Environment Layer Select", "$SETADEFAULTDIRECTORYHERE$")[0]`
+4. The `[0]` is because the method above returns a list, and we only need the first value of it, which is the file path
+
+#### Task 1.3. Adding the User Input into QGIS\
+Now we can add the user input layer into QGIS
+1. `env = iface.addVectorLayer(envPath, '$NAMEOFLAYER', 'ogr')`
+2. If the layer name is saved as something else, you can change it with `env.setName("$NAMEOFLAYER$)`
+3. You might want to practice and do the same for the Autobahn layer
 
 ## Task 2. Adding Buffers to Simulate Physical Autobahn
 - **Dataset used:** Autobhan.gpkg
@@ -83,14 +91,12 @@ This problem will be broken down into smaller problem sets and tasks to break th
 
 #### Task 2.1. Create a 20m buffer file for the Autobahn layer using the Graphic Modeler
 The Graphic Modeler is a good introduction to scripting in PyQGIS because the coding and scripting is displayed for the user as something visual, which is easy on the beginners
-
 1.
 2.
 3.
 
 #### Task 2.2. Recreating the same function using a standalone script
 Now that you visualized your steps, you can now try to translate them into actual Pythonic code on the Python Console
-
 1.
 2.
 3.
@@ -98,8 +104,7 @@ Now that you visualized your steps, you can now try to translate them into actua
 #### Task 2.3. Creating 2 more buffers
 Often times, the actual physical space that a highway construction takes up, is smaller than the actual impact that it causes to the environment.\
 Create 2 more buffers to depict 2 more impact zones that the construction of the Autobahn would cause\
-Bonus: You may also create a script that interactively asks for user input before running the Buffer algorithm
-
+Bonus: You may also create a script that interactively asks for user input before running the Buffer algorithm 
 1.
 2.
 3.
@@ -111,14 +116,12 @@ Bonus: You may also create a script that interactively asks for user input befor
 
 #### Task 3.1. Union-ing the Inner Impact Zone
 Now that we have tried to run Processing algorithms on the Python Console, let us try it on a standalone script
-
 1.
 2.
 3.
 
 #### Task 3.2. Union-ing the Overall Impact Area
 Next, we perform the Union algorithm on the result of the previous task, the Inner Impact Zone, with the Outer Impact Zone to aggregate the total Area of Impact
-
 1.
 2.
 3.
@@ -131,7 +134,6 @@ Next, we perform the Union algorithm on the result of the previous task, the Inn
 #### Task 4.1. Performing Intersection on Environment and Impact Area
 You have already created your own script! Now that we are more familiar with scripting, we shall now cover the rest of the tasks using scripts \
 Now, as mentioned, run an Intersection algorithm on the Environment layer as well as the Impact Zone layer
-
 1. 
 2.
 3.
@@ -144,7 +146,6 @@ Now, as mentioned, run an Intersection algorithm on the Environment layer as wel
 
 #### Task 5.1. Running a Query on the Environment Shapefile Attributes
 Query the attributes of the Environment Shapefile to determine the features that are protected by law
-
 1.
 2.
 3.
@@ -152,7 +153,6 @@ Query the attributes of the Environment Shapefile to determine the features that
 
 #### Task 5.2. Translating Query Feature into Pythonic Code
 Now we do what we did in 5.1 using Pythonic code in our script
-
 1.
 2.
 3.
@@ -161,7 +161,6 @@ Now we do what we did in 5.1 using Pythonic code in our script
 
 #### Task 5.3. Adding Vector Layer of Selected Features
 Now we have to create new layers with just the selected features to show which features are actually affected by the Autobahn construction
-
 1.
 2.
 3.
@@ -193,7 +192,6 @@ Now we have to create new layers with just the selected features to show which f
 
 #### Task 7.1. Deleting Intermediate Layers
 Some of the intermediate layers can be deleted because they serve no actual analytical purpose
-
 1.
 2.
 3.
@@ -201,7 +199,6 @@ Some of the intermediate layers can be deleted because they serve no actual anal
 #### Task 7.2. Hiding Layers
 Some of the result layers can be useful, but too many layers visible on the project makes it hard to read\
 Uncheck their visibility using a script so that they are still available, but not visible on the Map Canvas
-
 1.
 2.
 3.
@@ -209,7 +206,6 @@ Uncheck their visibility using a script so that they are still available, but no
 #### Task 7.3. Stylizing Map Layers
 There are many styles that can be utilized on the layers so that you can get information at a glance\
 Let us explore what we can achieve
-
 1.
 2.
 3.
@@ -217,7 +213,6 @@ Let us explore what we can achieve
 
 #### Task 7.4. Adding a Basemap
 To make your result more aesthetically pleasant, we can add a raster basemap
-
 1.
 2.
 3.
