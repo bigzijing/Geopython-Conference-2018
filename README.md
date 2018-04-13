@@ -79,7 +79,7 @@ We want to write a script to automate tasks, so let us explore asking for user i
 3. `envPath = QFileDialog.getOpenFileName(QFileDialog(), "Environment Layer Select", "$SETADEFAULTDIRECTORYHERE$")[0]`
 4. The `[0]` is because the method above returns a list, and we only need the first value of it, which is the file path
 
-#### Task 1.3. Adding Vector LAyers into QGIS
+#### Task 1.3. Adding Vector Layers into QGIS
 Now we can add the user input layer into QGIS
 1. `env = iface.addVectorLayer(envPath, '$NAMEOFLAYER', 'ogr')`
 2. If the layer name is saved as something else, you can change it with `env.setName("$NAMEOFLAYER$)`
@@ -128,25 +128,36 @@ Now that you visualized your steps, you can now try to translate them into actua
 3. Enter the fields for **Input Layer, Distance and Buffered** and run it
 4. At the top of the window, click on Log, you will see a bunch of code, we will be needing this for our script
 5. Study the Input parameters and copy its entire line of code
-6. On the PyQGIS console, type `atbn = QgsProject.instance().mapLayersByName('%NAMEOFAUTOBAHNLAYER%')[0]`, this assigns the vector layer of your autobahn to the variable `atbn`
+6. On the PyQGIS console, type `atbn = QgsProject.instance().mapLayersByName('%NAMEOFYOURAUTOBAHNLAYER%')[0]`, this assigns the vector layer of your autobahn to the variable `atbn`
 7. On the PyQGIS console, type `param =` and paste the copied code, and edit some fields, it should look something like this:\
 ``
 param = { 'INPUT' : atbn, 'DISTANCE' : 20, 'SEGMENTS' : 5, 'END_CAP_STYLE' : 0, 'JOIN_STYLE' : 0, 'MITER_LIMIT' : 2, 'DISSOLVE' : False, 'OUTPUT' : 'memory:' }
 ``
    We changed the file paths or assigned them to variables to make it easier for us because the Python console cannot read Unicode characters like `\` 
 8. Now to add the output as a map layer, type:
-``
+```
 algoOutput = processing.run("qgis:buffer", param)
-createAutobahn = QgsProject.instance().addMapLayer(algoOutput['OUTPUT'])
-``
+autobahn20 = QgsProject.instance().addMapLayer(algoOutput['OUTPUT'])
+autobahn20.setName("Autobahn 20")
+```
 
 #### Task 2.4. Creating 2 more buffers
 Often times, the actual physical space that a highway construction takes up, is smaller than the actual impact that it causes to the environment.\
 Create 2 more buffers to depict 2 more impact zones that the construction of the Autobahn would cause\
 Bonus: You may also create a script that interactively asks for user input before running the Buffer algorithm 
-1.
-2.
-3.
+1. On the Processing Toolbox, press the Scripts button and select **Create New Script**
+2. It will open up a text editor where you can write your Pythonic scripts
+3. Add the following as the header of your script:
+```
+from qgis.core import QgsProject
+import processing
+```
+4. Write a script that does the following:
+```
+1. Using Autobahn 20 and 100m as inputs, create a new buffer naemd Autobahn 100
+2. Using Autobahn 100 and 200m as inputs, create a new buffer named Autobahn 300
+```
+5. Save the script
 
 ## Task 3. Performing Union on the Buffer Areas
 - **Dataset used:** Autobahn.gpkg, and the 3 buffer results from previous task
@@ -155,17 +166,19 @@ Bonus: You may also create a script that interactively asks for user input befor
 
 #### Task 3.1. Union-ing the Inner Impact Zone
 Now that we have tried to run Processing algorithms on the Python Console, let us try it on a standalone script
-1.
-2.
-3.
+1. Open a new script and include the same headers from the previous script here
+2. Now, we are going to run a different algorithm, the Union
+3. Back on the main QGIS window, in the Processing Toolbox search bar, search **Union** and you can try running the Union algorithm under **Vector Overlay**
+4. The inputs will be **Autobahn 20** and **Autobahn 100**, and name the output **Inner Impact Area**
+5. Using the input parameters under Log of the algorithm window, write a script similar to Task 2 
+6. If you have trouble doing it, you can try using the Modeler to visualize your script
 
 #### Task 3.2. Union-ing the Overall Impact Area
 Next, we perform the Union algorithm on the result of the previous task, the Inner Impact Zone, with the Outer Impact Zone to aggregate the total Area of Impact
-1.
-2.
-3.
+1. Do the same for the resulting layer, Inner Impact Area and Autobahn 300 and name the output **Impact Area**
+2. You will now have a layer that is the union of all 3 Autobahn buffers
 
-## Task 4. Performing Intersections
+## Task 4. Refining Code
 - **Dataset used:** Umgebung.gpkg, union result from previous task
 - **Tools used:** Script Editor
 - **Objective:** Now that we have an overall impact area, we run an Intersection algorithm on it and the Environment layer to highlight the habitats that would be affected
@@ -173,10 +186,52 @@ Next, we perform the Union algorithm on the result of the previous task, the Inn
 #### Task 4.1. Performing Intersection on Environment and Impact Area
 You have already created your own script! Now that we are more familiar with scripting, we shall now cover the rest of the tasks using scripts \
 Now, as mentioned, run an Intersection algorithm on the Environment layer as well as the Impact Zone layer
-1. 
-2.
-3.
-4. 
+1. Similar to Task 3, we shall now run an Intersection algorithm on the **Impact Area** layer and the **Environment** layer
+2. However, let's make our script cleaner and friendlier, we can do this by defining functions, which are reusable blocks of code
+3. Start by creating a new script with the same headers as previous and then change the following pseudo code into actual Python code:
+```
+from dataSources import dataLibraries
+
+def union_layers(layer1, layer2, outputName):
+    param = { 'INPUT' : layer1, 'OVERLAY' : layer2, 'INPUT_FIELDS' : [], 'OVERLAY_FIELDS' : [], 'OUTPUT' : 'memory:' }
+    intxnOp = QgsProject.instance().addMapLayer(processing.run("qgis:intersection", param)['OUTPUT'])
+    intxnOp.setName(outputName)
+    
+```
+4. Save the script, and run it, what happened now is that you create a method in the script such that when the script is run, it has a method called **union_layers** which takes 3 variable inputs **layer1, layer2** and **outputName**
+5. When you call the method with the correct inputs, it will create and output, with the name of outputName, which is the intersection of the first 2 input vector layers
+6. For this to work for us, we have to assign the **Environment** layer and **Impact Area** layer
+7. Hint:
+```
+layerA = QgsProject.instance().mapLayersByName('Environment')
+layerB...
+opName = ' xxx '
+
+union_layers(layerA, layerB, opName)
+```
+
+#### Task 4.2. Doing the Same for Previous Tasks
+Now that you have learned how to define a method in a script, do it for:\
+1. Adding a vector layer with user input from a dialog box
+2. Setting the CRS
+3. Adding a buffer
+4. Performing an union
+5. Performing an intersection
+6. Hint: It should look something like this:
+```
+import libraries
+
+def add_layer(inputs):
+    """your code here"""
+    
+def set_CRS(input):
+    """your code here"""
+    
+def more_methods(inputs):
+    """"your code here""""
+````
+7. Once you have finished the script, run it, and on the Python console, declare and assign your variables, then try running the methods you have defined
+8. Due to time constraint during the actual workshop, we might not have time to slowly do this for every task, so here is a script that works and already have these method declarations [link]
 
 ## Task 5. Selecting Features from Queries
 - **Dataset used:** Umgebung.gpkg
