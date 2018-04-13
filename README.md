@@ -128,16 +128,17 @@ Now that you visualized your steps, you can now try to translate them into actua
 3. Enter the fields for **Input Layer, Distance and Buffered** and run it
 4. At the top of the window, click on Log, you will see a bunch of code, we will be needing this for our script
 5. Study the Input parameters and copy its entire line of code
-6. On the PyQGIS console, type `param =` and paste the copied code, it should look something like this:\
-```
-param = { 'INPUT' : %YOURFILEPATH%, 'DISTANCE' : 20, 'SEGMENTS' : 5, 'END_CAP_STYLE' : 0, 'JOIN_STYLE' : 0, 'MITER_LIMIT' : 2, 'DISSOLVE' : False, 'OUTPUT' : 'AUTOBAHN 20' }
-```
-   In the file path, change the `\` characters into `//` because it does not read Unicode\
-7.
-```
+6. On the PyQGIS console, type `atbn = QgsProject.instance().mapLayersByName('%NAMEOFAUTOBAHNLAYER%')[0]`, this assigns the vector layer of your autobahn to the variable `atbn`
+7. On the PyQGIS console, type `param =` and paste the copied code, and edit some fields, it should look something like this:\
+``
+param = { 'INPUT' : atbn, 'DISTANCE' : 20, 'SEGMENTS' : 5, 'END_CAP_STYLE' : 0, 'JOIN_STYLE' : 0, 'MITER_LIMIT' : 2, 'DISSOLVE' : False, 'OUTPUT' : 'memory:' }
+``
+   We changed the file paths or assigned them to variables to make it easier for us because the Python console cannot read Unicode characters like `\` 
+8. Now to add the output as a map layer, type:
+``
 algoOutput = processing.run("qgis:buffer", param)
 createAutobahn = QgsProject.instance().addMapLayer(algoOutput['OUTPUT'])
-```
+``
 
 #### Task 2.4. Creating 2 more buffers
 Often times, the actual physical space that a highway construction takes up, is smaller than the actual impact that it causes to the environment.\
