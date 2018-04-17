@@ -192,13 +192,13 @@ Now, as mentioned, run an Intersection algorithm on the Environment layer as wel
 ```
 from dataSources import dataLibraries
 
-def union_layers(layer1, layer2, outputName):
+def intersect_layers(layer1, layer2, outputName):
     param = { 'INPUT' : layer1, 'OVERLAY' : layer2, 'INPUT_FIELDS' : [], 'OVERLAY_FIELDS' : [], 'OUTPUT' : 'memory:' }
     intxnOp = QgsProject.instance().addMapLayer(processing.run("qgis:intersection", param)['OUTPUT'])
     intxnOp.setName(outputName)
     
 ```
-4. Save the script, and run it, what happened now is that you create a method in the script such that when the script is run, it has a method called **union_layers** which takes 3 variable inputs **layer1, layer2** and **outputName**
+4. Save the script, and run it, what happened now is that you create a method in the script such that when the script is run, it has a method called **intersect_layers** which takes 3 variable inputs **layer1, layer2** and **outputName**
 5. When you call the method with the correct inputs, it will create and output, with the name of outputName, which is the intersection of the first 2 input vector layers
 6. For this to work for us, we have to assign the **Environment** layer and **Impact Area** layer
 7. Hint:
@@ -207,7 +207,7 @@ layerA = QgsProject.instance().mapLayersByName('Environment')
 layerB...
 opName = ' xxx '
 
-union_layers(layerA, layerB, opName)
+intersect_layers(layerA, layerB, opName)
 ```
 
 #### Task 4.2. Doing the Same for Previous Tasks
@@ -230,87 +230,125 @@ def set_CRS(input):
 def more_methods(inputs):
     """"your code here""""
 ````
-7. Once you have finished the script, run it, and on the Python console, declare and assign your variables, then try running the methods you have defined
-8. Due to time constraint during the actual workshop, we might not have time to slowly do this for every task, so here is a script that works and already have these method declarations [link]
+7. Once you have finished the script, run it, then on the Python console, declare and assign your variables, then try running the methods you have defined
+8. Due to time constraint during the actual workshop, we might not have time to do this for every task, so here is a script that works and already have these method declarations [link]
+9. We shall now continue writing the script by declaring methods to allow easy reusability and calling
 
 ## Task 5. Selecting Features from Queries
 - **Dataset used:** Umgebung.gpkg
 - **Tools used:** Query Features and Script Editor
-- **Objective:** Now, we have to sieve out habitats in the Environment layer that are protected species from the other habitats
+- **Objective:** Now, we have to sieve out, from the impacted and affected habitats, those that are protected species from the others
 
 #### Task 5.1. Running a Query on the Environment Shapefile Attributes
-Query the attributes of the Environment Shapefile to determine the features that are protected by law
-1.
-2.
-3.
-4.
+Query the attributes of the Environment Shapefile to determine the features that are protected by law\
+1. To do this, right click on the Environment layer in the Layers panel, and select Open Attribute Table
+2. On the top menu bar, click the button that says `Select features with an expression`
+3. Write the expression for which you want to select queries with, for our case, we are looking for habitats where `"ffh_typ_nr" = 1`, `"geschuetzt_biotop" = 1`, or `"bedeutend_gruendland_type" = 1`
+4. Once you have written the expression, click on `Select Features`, you should have 43 features highlighted
 
 #### Task 5.2. Translating Query Feature into Pythonic Code
 Now we do what we did in 5.1 using Pythonic code in our script
-1.
-2.
-3.
-4.
-[Help: Selecting features using script]
+
+1. Remember, we are looking for habitats where `"ffh_typ_nr" = 1`, `"geschuetzt_biotop" = 1`, or `"bedeutend_gruendland_type" = 1`
+2. In your script, type:
+```
+expr = QgsExpression("\"ffh_typ_nr\"=1 or \"geschuetzt_biotop\" = 1 or \"bedeutend_gruenland_typ\" = 1")
+```
+3. Next, we need to select all features that meet this query:
+```
+it = env.getFeatures(QgsFeatureRequest(expr))
+```
 
 #### Task 5.3. Adding Vector Layer of Selected Features
 Now we have to create new layers with just the selected features to show which features are actually affected by the Autobahn construction
-1.
-2.
-3.
-4.
+1. Now that we have a layer with highlighted features, go back to the QGIS window, right click the Environment layer and select `Save As...`
+2. On the new window, fill in the relevant fills, and make sure that `Save only selected features` is checked
 
 #### Task 5.4. Translating Vector Layer Adding into Pythonic Code
-1.
-2.
-3.
-4.
+1. And then, we want to create a new layer made from the selected features:
+```
+ids = [i.id() for i in it]
+intersectedHabs.selectByIds(ids)
+valuable = env.materialize(QgsFeatureRequest().setFilterFids(intersectedHabs.selectedFeatureIds()))
+QgsProject.instance().addMapLayer(valuable)
+```
+5. Lastly, we can set the name and deselect the highlighted features with `%LAYERNAME%.selectByIds([])`
 
-## Task 6. Finding Actual Protected Species Impacted by Autobahn Construction
-- **Dataset used:** 
-- **Tools used:** Script Editor, Processing Algorithm
-- **Objective**: From the bla bla bla
-
-#### Task 6.1. Intersect
-1.
-2.
-3.
-4.
-
-#### Task 6.2. 
-
-## Task 7. Stylizing and Cleaning Up
+## Task 6. Stylizing and Cleaning Up
 - **Dataset used:**
 - **Tools used:** Script Editor
 - **Objective**: Stylize the map layers to make results more obvious and clean up the project to make it more readable
 
-#### Task 7.1. Deleting Intermediate Layers
+#### Task 6.1. Deleting Intermediate Layers
 Some of the intermediate layers can be deleted because they serve no actual analytical purpose
-1.
-2.
-3.
+1. Look at your project and determine which ones are inconsequent to your overall analysis, and you may want to delete them from the project to make it more readable and less cluttered
+2. Psuedocode for doing this:
+```
+- find the id of the map layers you want to delete, you may find it through mapLayersByName()
+- make sure that you have the pointer to the vector map layer object of the layer you want to delete
+- call removeMapLayer() from QgsProject instance
+```
 
-#### Task 7.2. Hiding Layers
+#### Task 6.2. Hiding Layers
 Some of the result layers can be useful, but too many layers visible on the project makes it hard to read\
-Uncheck their visibility using a script so that they are still available, but not visible on the Map Canvas
-1.
-2.
-3.
+Uncheck their visibility using a script so that they are still available, but not visible on the Map Canvas\
+1. Pseudocode:
+```
+- get a pointer to your layer under layerTreeRoot()
+- setItemVisibilityChecked(False) for that data object
+```
 
-#### Task 7.3. Stylizing Map Layers
+#### Task 6.3. Stylizing Map Layers
 There are many styles that can be utilized on the layers so that you can get information at a glance\
-Let us explore what we can achieve
-1.
-2.
-3.
-4.
+For today, we try to stylize them by categorizing different data in different colors and similar data in different shades
+1. First we have to choose the attributes we want to categorize our vector layer in, for this example, say we want to make all the valuable habitats that are impacted to be green, and we want to categorize it by the type of FFH classification it falls into
+2. To do that, we have to find out how many unique FFH classifications we have in the layer:
+```
+classNames = valuableIntersected.fields().indexFromName('ffh_typ_text')
+uniqueClass = valuableIntersected.dataProvider().uniqueValues(classNames)
 
-#### Task 7.4. Adding a Basemap
-To make your result more aesthetically pleasant, we can add a raster basemap
-1.
-2.
-3.
-4.
+categories = []
+count = 0
+
+for class in uniqueClass:
+    count += 1
+```
+3. Now, we categorize the different types of attibutes with a different shade of color:
+```
+for classes in uniqueClass:
+    symbol = QgsSymbol.defaultSymbol(layer.geometryType())
+    layerStyle = {}
+    layerStyle['color'] = '%d, %d, %d' % ( your desired RGB values )
+    layerStyle['outline'] = '#000000'
+    symbolLayer = QgsSimpleFillSymbolLayer.create(layerStyle)
+    if symbolLayer is not None:
+        symbol.changeSymbolLayer(0, symbolLayer)
+    
+    category = QgsRendererCategory(uniqueClass, symbol, str(classes)
+    categories.append(category)
+```
+4. Run the renderer and repain:
+```
+renderer = QgsCategorizedSymbolRenderer('ffh_typ_text', categories)
+if renderer is not None:
+    valuableIntersected.setRenderer(renderer)
+valuableIntersected.triggerRepaint()
+```
+
+#### Task 6.4. Adding a Basemap
+We can add a raster basemap as a reference for your geospatial data analysis
+1. Get an input for the path which the raster map is stored
+2. Use addRasterLayer() to add the raster layer
+3. You may want to player with the renderer() and symbol() to adjust the basemap stylization settings
+
+#### Task 6.5. Rearranging the Layers
+Let's rearrange the layers for better visibility by putting the original Autobahn 20 and Autobahn vector files at the top of the order\
+1. Get the layerTreeRoot() of the QgsProject
+2. Find the layers you want to reslot using findLayer()
+3. clone them using clone()
+4. Get a pointer to the parent object of the layer using parent()
+5. Insert the clones into the parent node and remove the original layers using insertChildNode(position, layer) and removeChildNode()
+6. Refresh the map canvas
 
 ## Bonus: Interactive and Independent Script
 We have created many different functions to help us achieve our tasks \
