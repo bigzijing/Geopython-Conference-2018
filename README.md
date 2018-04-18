@@ -4,7 +4,7 @@
 A QGIS workshop for the GeoPython Conference 2018
  
 ## Getting started
-1. Download and install QGIS 3.x [Link to the download page](https://www.qgis.org/en/site/forusers/download.html)
+1. Download and install QGIS 3.x ([Link to the download page](https://www.qgis.org/en/site/forusers/download.html))
 2. Get the sample data that we will be using from this repository
 3. Fire up QGIS and we're ready! 
  
