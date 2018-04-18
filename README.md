@@ -235,7 +235,7 @@ def set_CRS(input):
 def more_methods(inputs):
     """"your code here""""
 ````
-7. Once you have finished the script, run it, then on the Python console, declare and assign your variables, then try running the methods you have defined
+7. Once you have finished the script, run it, then on the Python console, declare and assign your variables, then try running the methods you have defined, you should be able to recreate the project thus far
 8. Due to time constraint during the actual workshop, we might not have time to do this for every task, so here is a script that works and already have these method declarations [link]
 9. We shall now continue writing the script by declaring methods to allow easy reusability and calling
 
@@ -347,7 +347,7 @@ We can add a raster basemap as a reference for your geospatial data analysis
 3. You may want to player with the renderer() and symbol() to adjust the basemap stylization settings
 
 #### Task 6.5. Rearranging the Layers
-Let's rearrange the layers for better visibility by putting the original Autobahn 20 and Autobahn vector files at the top of the order\
+Let's rearrange the layers for better visibility by putting the original Autobahn 20 and Autobahn vector files at the top of the order \
 1. Get the layerTreeRoot() of the QgsProject
 2. Find the layers you want to reslot using findLayer()
 3. clone them using clone()
@@ -356,7 +356,7 @@ Let's rearrange the layers for better visibility by putting the original Autobah
 6. Refresh the map canvas
 
 ## Bonus: Interactive and Independent Script
-We have created many different functions to help us achieve our tasks \
+We have created many different functions to help us achieve our tasks\
 Can we do better to join them all into just 1 script entity?\
 Can we do even better and create a script that is interactive and uses the user inputs to automate our tasks?\
 Can we publish these scripts or create something that others can use?
