@@ -72,31 +72,33 @@ This problem will be broken down into smaller problem sets and tasks to break th
 2. On the browser panel, look for GeoPackage, right click it and select **New Connection**
 3. Navigate to the folder you saved environment/umgebung.gpkg in and add it
 4. On the browser panel, show the child items of environment/umgebung.gpkg and drag the vector layer onto the map canvas
+5. As we are going to focus on scripting in Python, let's remove this layer: right click the layer under Layers, and click on remove
 
 #### Task 1.2. Creating a Dialog Box to ask for User Input on File to Add\
 We want to write a script to automate tasks, so let us explore asking for user input for file path
 1. On the Menu Toolbar, click `Plugins -> Python Console` or press `Ctrl + Alt + P` on your keyboard to open up the Python Console
 2. You can run Python code on the console to perform various tasks, try creating a file dialog box that asks for user input on the file path
-3. `envPath = QFileDialog.getOpenFileName(QFileDialog(), "Environment Layer Select", "$SETADEFAULTDIRECTORYHERE$")[0]`
+3. `envPath = QFileDialog.getOpenFileName(QFileDialog(), "Environment Layer Select", "$set_a_default_path$")[0]`
 4. The `[0]` is because the method above returns a list, and we only need the first value of it, which is the file path
 
 #### Task 1.3. Adding Vector Layers into QGIS
 Now we can add the user input layer into QGIS
-1. `env = iface.addVectorLayer(envPath, '$NAMEOFLAYER', 'ogr')`
-2. If the layer name is saved as something else, you can change it with `env.setName("$NAMEOFLAYER$)`
+1. `env = iface.addVectorLayer(envPath, '$pick_a_name$', 'ogr')`
+2. If the layer name is saved as something else, you can change it with `env.setName("$new_name$")`
 3. Practice and do the same for the Autobahn layer
 
 #### Task 1.4. Adding Autobahn Layer and Setting CRS
 1. Add the Autobahn layer using the Python Console
 2. Set the Project CRS to 31467, DHDN/Gauss-Kruger Zone 3
 3. You can do this manually by clicking on the CRS at the bottom-right of the window, or by clicking `Project -> Project Properties -> CRS` or you can press `Ctrl + Shift + P` to open up Project Properties and then clicking CRS
-4. As we are writing a script, we prefer to do it in PyQGIS, enter:
+4. PyQGIS has many data libraries to be utilized, and for the next step, we have to import a library called 'core', type: `from qgis import core` to import the core data library so that we can call its built-in methods
+5. As we are writing a script, we prefer to do it in PyQGIS, enter:
 ```
 my_crs = core.QgsCoordinateReferenceSystem(31467, core.QgsCoordinateReferenceSystem.EpsgCrsId)
 QgsMapSettings().setDestinationCrs(my_crs)  
 iface.mapCanvas().refresh()
 ```
-5. Once you're done, check that it says 31467 at the bottom of the window on the CRS tab
+6. Once you're done, check that it says 31467 at the bottom of the window on the CRS tab
 
 ## Task 2. Adding Buffers to Autobahn Layer
 - **Dataset used:** Autobhan.gpkg
