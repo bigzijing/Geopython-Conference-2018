@@ -219,11 +219,10 @@ intersect_layers(layerA, layerB, opName)
 #### Task 4.2. Doing the Same for Previous Tasks
 Now that you have learned how to define a method in a script, do it for:\
 1. Adding a vector layer with user input from a dialog box
-2. Setting the CRS
-3. Adding a buffer
-4. Performing an union
-5. Performing an intersection
-6. Hint: It should look something like this:
+2. Adding a buffer
+3. Performing an union
+4. Performing an intersection
+5. Hint: It should look something like this:
 ```
 import libraries
 
