@@ -106,14 +106,16 @@ The Graphic Modeler is a good introduction to scripting in PyQGIS because the co
 With the Processing Graphic Modeler open, we can now visualize and build Task 2.1.3
 1. Name the Model `Autobahn Buffer` and the Group `vector`
 2. On the bottom left, click on Input if it is not already selected, and drag Vector Layer into the blank canvas
-3. Name it `Autobahn Buffer` and under Geometry type, select Line as we only want it to exclusively deal with line geometries
+3. Name the parameter name `Autobahn` and under Geometry type, select Line as we only want it to exclusively deal with line geometries
 4. Drag a Number under Input into the canvas, and name it `Buffer Distance`, you may choose to fill in the other fields
 5. On the bottom left, click on Algorithms, and in the searchbar, type 'Buffer', and drag the Algorithm called Buffer into the canvas, making sure it is under *Vector Geometry* and not any other algorithm provider
-6. In the Input Layer field, select `Autobahn` from the dropdown menu, in the Distance field, type `@bufferdist`, and in the Buffered field, type *Output Layer Name*
+6. In the Input Layer field, select `Autobahn` from the dropdown menu, in the Distance field, type `@bufferdistance`, and in the Buffered field, type *Output Layer Name*
 7. On your canvas, you should see that **Buffer Distance** and **Autobahn** are connected as inputs to **Buffer** which gives an output named **Output Layer Name**
 8. On the menu toolbar, click on the green arrow Run Model or press F5 to run the model
 9. Under Autobahn, select your Autobahn vector layer from the drop down menu, under Buffer Distance, type in **20** and under Output Layer Name, type **Autobahn 20** and run it
 10. Let the Model run and after processing, you should see the output vector on your main QGIS window
+
+[Insert photo of the modeler]
 
 #### Task 2.3. Recreating the same function using a standalone script
 Now that you visualized your steps, you can now try to translate them into actual Pythonic code on the Python Console\
@@ -135,6 +137,8 @@ autobahn20 = QgsProject.instance().addMapLayer(algoOutput['OUTPUT'])
 autobahn20.setName("Autobahn 20")
 ```
 
+[Insert Buffer Log Example]
+
 #### Task 2.4. Creating 2 more buffers
 Often times, the actual physical space that a highway construction takes up, is smaller than the actual impact that it causes to the environment.\
 Create 2 more buffers to depict 2 more impact zones that the construction of the Autobahn would cause\
@@ -150,6 +154,8 @@ import processing
 ```
 1. Using Autobahn 20 and 100m as inputs, create a new buffer naemd Autobahn 100
 2. Using Autobahn 100 and 200m as inputs, create a new buffer named Autobahn 300
+
+Hint: You might need to assign the variable `autobahn20` in the script, do this with: `autobahn20 = QgsProject.instance().mapLayersByName("%name_of_layer%)[0]
 ```
 5. Save the script
 
@@ -171,6 +177,9 @@ Now that we have tried to run Processing algorithms on the Python Console, let u
 Next, we perform the Union algorithm on the result of the previous task, the Inner Impact Zone, with the Outer Impact Zone to aggregate the total Area of Impact
 1. Do the same for the resulting layer, Inner Impact Area and Autobahn 300 and name the output **Impact Area**
 2. You will now have a layer that is the union of all 3 Autobahn buffers
+3. You can see a screenshot of what your project should roughly look like below:
+
+[Insert Task 3 Example]
 
 ## Task 4. Refining Code
 - **Dataset used:** Umgebung.gpkg, union result from previous task
@@ -192,7 +201,7 @@ def intersect_layers(layer1, layer2, outputName):
     intxnOp.setName(outputName)
     
 ```
-4. Save the script, and run it, what happened now is that you create a method in the script such that when the script is run, it has a method called **intersect_layers** which takes 3 variable inputs **layer1, layer2** and **outputName**
+4. Save the script, and on the Python Console select Open Script and open the script you just saved, after that, select Run Script on the Python Console. What happened is that you created a method in the script such that when the script is run, a method named **intersect_layers** is available to be called, which takes 3 variable inputs **layer1, layer2** and **outputName**
 5. When you call the method with the correct inputs, it will create and output, with the name of outputName, which is the intersection of the first 2 input vector layers
 6. For this to work for us, we have to assign the **Environment** layer and **Impact Area** layer
 7. Hint:
@@ -203,6 +212,9 @@ opName = ' xxx '
 
 intersect_layers(layerA, layerB, opName)
 ```
+8. Your result should look something like this: 
+
+[Insert task 4 example]
 
 #### Task 4.2. Doing the Same for Previous Tasks
 Now that you have learned how to define a method in a script, do it for:\
