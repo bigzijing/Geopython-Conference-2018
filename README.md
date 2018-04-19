@@ -332,7 +332,7 @@ for classes in uniqueClass:
     category = QgsRendererCategory(uniqueClass, symbol, str(classes)
     categories.append(category)
 ```
-4. Run the renderer and repain:
+4. Run the renderer and repaint:
 ```
 renderer = QgsCategorizedSymbolRenderer('ffh_typ_text', categories)
 if renderer is not None:
