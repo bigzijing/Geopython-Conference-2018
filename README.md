@@ -347,7 +347,7 @@ We can add a raster basemap as a reference for your geospatial data analysis
 3. You may want to player with the renderer() and symbol() to adjust the basemap stylization settings
 
 #### Task 6.5. Rearranging the Layers
-Let's rearrange the layers for better visibility by putting the original Autobahn 20 and Autobahn vector files at the top of the order \
+Let's rearrange the layers for better visibility by putting the original Autobahn 20 and Autobahn vector files at the top of the order 
 1. Get the layerTreeRoot() of the QgsProject
 2. Find the layers you want to reslot using findLayer()
 3. clone them using clone()
