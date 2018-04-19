@@ -83,7 +83,7 @@ We want to write a script to automate tasks, so let us explore asking for user i
 1. On the Menu Toolbar, click `Plugins -> Python Console` or press `Ctrl + Alt + P` on your keyboard to open up the Python Console
 2. You can run Python code on the console to perform various tasks, try creating a file dialog box that asks for user input on the file path
 3. `envPath = QFileDialog.getOpenFileName(QFileDialog(), "Environment Layer Select", "$set_a_default_path$")[0]`
-4. The `[0]` is because the method above returns a list, and we only need the first value of it, which is the file path
+4. The `[0]` is because the above returns a list, and we only need the first value of it, which is the file path
 
 #### Task 1.3. Adding Vector Layers into QGIS
 Now we can add the user input layer into QGIS
@@ -201,8 +201,8 @@ def intersect_layers(layer1, layer2, outputName):
     intxnOp.setName(outputName)
     
 ```
-4. Save the script, and on the Python Console select Open Script and open the script you just saved, after that, select Run Script on the Python Console. What happened is that you created a method in the script such that when the script is run, a method named **intersect_layers** is available to be called, which takes 3 variable inputs **layer1, layer2** and **outputName**
-5. When you call the method with the correct inputs, it will create and output, with the name of outputName, which is the intersection of the first 2 input vector layers
+4. Save the script, and on the Python Console select Open Script and open the script you just saved, after that, select Run Script on the Python Console. What happened is that you created a function in the script such that when the script is run, a function named **intersect_layers** is available to be called, which takes 3 variable inputs **layer1, layer2** and **outputName**
+5. When you call the function with the correct inputs, it will create and output, with the name of outputName, which is the intersection of the first 2 input vector layers
 6. For this to work for us, we have to assign the **Environment** layer and **Impact Area** layer
 7. Hint:
 ```
@@ -217,7 +217,7 @@ intersect_layers(layerA, layerB, opName)
 [Insert task 4 example]
 
 #### Task 4.2. Doing the Same for Previous Tasks
-Now that you have learned how to define a method in a script, do it for:\
+Now that you have learned how to define a function in a script, do it for:\
 1. Adding a vector layer with user input from a dialog box
 2. Adding a buffer
 3. Performing an union
@@ -232,12 +232,12 @@ def add_layer(inputs):
 def set_CRS(input):
     """your code here"""
     
-def more_methods(inputs):
+def more_functions(inputs):
     """"your code here""""
 ````
-7. Once you have finished the script, run it, then on the Python console, declare and assign your variables, then try running the methods you have defined, you should be able to recreate the project thus far
-8. Due to time constraint during the actual workshop, we might not have time to do this for every task, so here is a script that works and already have these method declarations [link]
-9. We shall now continue writing the script by declaring methods to allow easy reusability and calling
+7. Once you have finished the script, run it, then on the Python console, declare and assign your variables, then try running the functions you have defined, you should be able to recreate the project thus far
+8. Due to time constraint during the actual workshop, we might not have time to do this for every task, so here is a script that works and already have these function declarations [link]
+9. We shall now continue writing the script by declaring functions to allow easy reusability and calling
 
 ## Task 5. Selecting Features from Queries
 - **Dataset used:** Umgebung.gpkg
