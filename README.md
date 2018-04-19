@@ -361,23 +361,11 @@ Can we do better to join them all into just 1 script entity?\
 Can we do even better and create a script that is interactive and uses the user inputs to automate our tasks?\
 Can we publish these scripts or create something that others can use?
 
-#### Bonus 1: Creating a Main Script
-1.
-2.
-3.
-4.
-
-#### Bonus 2: Creating an Interactive Script
-1.
-2.
-3.
-4.
-
-#### Bonus 3: Plugins
-1.
-2.
-3.
-4.
+#### Bonus: Creating a Main Script
+1. For the more advanced coders, you might want to create a Class instead of just defining functions, but for the purpose of this workshop, I don't think that it helps in creating cleaner code or better modularity
+2. Otherwise, create a script that does everything with just being called once
+3. Make the script from Bonus 1 interactive, and get the user inputs on file paths, algorithm parameters, etc.
+4. Once you are satisfied with that script, you might even want to consider converting it into a plugin so that it can be published and used by others
 
 
 ## Notes for QGIS 3.0.0
