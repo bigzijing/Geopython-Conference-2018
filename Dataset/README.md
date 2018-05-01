@@ -4,14 +4,16 @@ Included are two datasets necessary for the workflow to be completed.
 **Note: This workflow has been adapted by Stefan Keller, Geometa Lab, Hochschule fur Technik Rapperswil for use as course material.**  
 **Note 2: Subsequently, it was translated into English by Kang Zi Jing into English and updated for QGIS 3.0, for use in the GeoPython Conference 2018.**  
 
-This folder contains 2 files:
+This folder contains 3 files:
 * umgebung.gpkg
 * autobahn.gpkg
+* heli.tif 
 
 The **_umgebung.gpkg_** file is a GeoPackage file which contains a multi-polygonal vector layer with a database containing attributes like
 the use of habitats, the laws that protects the specific habitat, etc.\
 The **_autobahn.gpkg_** file is a GeoPackage file which contains a line vector layer which shows the propsed route of the autobahn to be
 constructed without showing the physical space (of 20m) that it would take up.\
+The **_heli.tif_** file is generally inconsequent for the majority of the workshop and the main workshop tutorial. It is basically a raster file to be added as a reference basemap at the end of the entire workflow, for user reference and some aesthetic value.\
 \
 These files, along with its attributes, have been kept in its original language, German, so as to avoid introducing any possible errors
 or other ambiguities when performing geoanalytical tasks on them in the course of the workshop. For your reference, below is a
