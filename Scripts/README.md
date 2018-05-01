@@ -11,4 +11,4 @@ You may end up with a different code and even better code, so feel free and dare
 There is also a vast community out there who would be willing and happy to help if you come into an obstacle or if you do not know how to solve a certain difficult question.
 At the same time, always remember to Google and try to figure out on your own before asking another person!
 
-Have fun programming!
+Have fun programming and godspeed!
