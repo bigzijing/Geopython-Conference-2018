@@ -28,6 +28,7 @@ we are interested in are bolded in the table below, for convenience.
 |**umgebung**|environment|See above|
 |**autobahn**|highway/expressway|See above|
 |||
+|||
 |fid|Habitat ID|ID of Habitat/Attribute|
 |nutzung|(Land) Use|What the habitat is used for|
 |nutzungs_nr|(Land) Use no.|Different uses ordered by a number|
