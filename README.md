@@ -13,7 +13,7 @@ Downloading the standalone or OSGeo4W installer will automatically install the c
 ## Setting up your development environment
 To try out our hands on examples, the following is required:
 * QGIS 3.x (We will be using QGIS 3.0)
-* Python 3.x (We wil lbe using Python 3.6)
+* Python 3.x (We will be using Python 3.6)
 * Qt
 * PyQt
  
@@ -41,20 +41,24 @@ import qgis.utils
 ```
    
 ## Introduction to Processing Framework
-*
-*
-*
+* More information can be found in the slides also available in this repository
 
 ## About PyQGIS
-*
-*
-*
+* QGIS 0.9.0 introduced Python to its client
+* PyQGIS or Python Console in QGIS client
+* Features of PyQGIS:
+    * Automatically run Python code when QGIS starts
+    * Create custom applications with Python API
+    * Run Python code and commands on the Python Console
+    * Create and use Python plugins
 
-## **Task: Perform Geospatial Analysis on bla bla protected species**
-* 
-*
-*
-* More details can be found here [link to the tutorial course]
+
+## **Task: Perform Geospatial Analysis on Protected Habitats in an Environment**
+* Problem: The construction of an autobahn/expressway will lead to detrimental impact onto the habitats on its environment. analyze the protected habitats that would be affected by the construction
+* Source: This task is based on Task 6 of the course “Introduction to GIS and Digital Cartography” by Claas Leiner, University of Kassel, 2010.
+* Adapted to a class for Vector Analysis by Stefan Keller, FS 2017
+* Translated and adapted for QGIS 3.0 and the GeoPython Conference by Kang Zi Jing, 2018
+* The workflow can be found in the repository, here [link to the tutorial course]
 
 **As you can already tell, doing this over and over again on different files is very tedious, boring and repetitive. Is there a way to automate this? Yes! With the help of scripting and PyQGIS, we can!**\
 \
@@ -65,7 +69,8 @@ This problem will be broken down into smaller problem sets and tasks to break th
 ## **Task 1.** Adding Geopackage as Layers into QGIS
 - **Dataset used:** Umgebung.gpkg, Autobahn.gpkg
 - **Tools used:** QGIS GUI, PyQGIS
-- **Objective:** To load .gpkg files into QGIS client
+- **Description:** To load .gpkg files into QGIS client
+- **Objective:** Manually load vector layers on QGIS, and then using the Python console
 
 #### Task 1.1. Manually adding the Geopackage files into QGIS
 1. Run QGIS 3.0 on your machine
@@ -82,19 +87,20 @@ This problem will be broken down into smaller problem sets and tasks to break th
 We want to write a script to automate tasks, so let us explore asking for user input for file path
 1. On the Menu Toolbar, click `Plugins -> Python Console` or press `Ctrl + Alt + P` on your keyboard to open up the Python Console
 2. You can run Python code on the console to perform various tasks, try creating a file dialog box that asks for user input on the file path
-3. `envPath = QFileDialog.getOpenFileName(QFileDialog(), "Environment Layer Select", "$set_a_default_path$")[0]`
+3. `envPath = QFileDialog.getOpenFileName(QFileDialog(), "Environment Layer Select", "setDefaultPath")[0]`
 4. The `[0]` is because the above returns a list, and we only need the first value of it, which is the file path
 
 #### Task 1.3. Adding Vector Layers into QGIS
 Now we can add the user input layer into QGIS
-1. `env = iface.addVectorLayer(envPath, '$pick_a_name$', 'ogr')`
-2. If the layer name is saved as something else, you can change it with `env.setName("$new_name$")`
+1. `env = iface.addVectorLayer(envPath, 'nameIt', 'ogr')`
+2. If the layer name is saved as something else, you can change it with `env.setName("newName")`
 3. Practice and do the same for the Autobahn layer using the Python console
 
 ## Task 2. Adding Buffers to Autobahn Layer
 - **Dataset used:** Autobhan.gpkg
 - **Tools used:** Processing Graphic Modeler, Python Console
-- **Objective:** To create buffer layers for the Autobahn to simulate the actual physical space of it
+- **Description:** To create buffer layers for the Autobahn to simulate the actual physical space of it
+- **Objective:** Running Processing algorithms on the Graphic Modeler, and then with Pythonic code
 
 #### Task 2.1. Introduction and Running the Graphic Modeler
 The Graphic Modeler is a good introduction to scripting in PyQGIS because the coding and scripting is displayed for the user as something visual, which is easy on the beginners
@@ -102,7 +108,7 @@ The Graphic Modeler is a good introduction to scripting in PyQGIS because the co
 2. On the Toolbox's menu toolbar, click `Models -> Create New Model`
 3. First, we need to visualize and get an idea of what we want to achieve (this helps us to form pseudo code before creating actual code in the future): Run through the Autobahn layer with a Buffer algorithm to create a new Autobahn layer that is 40m wide in diameter
 
-#### Task 2.2. Create a 20m buffer file for the Autobahn layer using the Graphic Modeler\
+#### Task 2.2. Create a 20m buffer file for the Autobahn layer using the Graphic Modeler
 With the Processing Graphic Modeler open, we can now visualize and build Task 2.1.3
 1. Name the Model `Autobahn Buffer` and the Group `vector`
 2. On the bottom left, click on Input if it is not already selected, and drag Vector Layer into the blank canvas
@@ -162,7 +168,8 @@ Hint: You might need to assign the variable `autobahn20` in the script, do this 
 ## Task 3. Performing Union on the Buffer Areas
 - **Dataset used:** Autobahn.gpkg, and the 3 buffer results from previous task
 - **Tools used:** Python Console, Script Editor
-- **Objective:** Now that we have 3 separate buffer layers to showcase the impact areas, we should perform an Union on them to create an overall area of impact from constructing the highway
+- **Description:** Now that we have 3 separate buffer layers to showcase the impact areas, we should perform an Union on them to create an overall area of impact from constructing the highway
+- **Objective:** Get more familiar with using Pythonic code to run Processing algorithms
 
 #### Task 3.1. Union-ing the Inner Impact Zone
 Now that we have tried to run Processing algorithms on the Python Console, let us try it on a standalone script
@@ -184,7 +191,8 @@ Next, we perform the Union algorithm on the result of the previous task, the Inn
 ## Task 4. Refining Code
 - **Dataset used:** Umgebung.gpkg, union result from previous task
 - **Tools used:** Script Editor
-- **Objective:** Now that we have an overall impact area, we run an Intersection algorithm on it and the Environment layer to highlight the habitats that would be affected
+- **Description:** Now that we have an overall impact area, we run an Intersection algorithm on it and the Environment layer to highlight the habitats that would be affected
+- **Objectives:** More scripting with Processing algorithms, also introduction to function declarations
 
 #### Task 4.1. Performing Intersection on Environment and Impact Area
 You have already created your own script! Now that we are more familiar with scripting, we shall now cover the rest of the tasks using scripts \
@@ -217,7 +225,7 @@ intersect_layers(layerA, layerB, opName)
 [Insert task 4 example]
 
 #### Task 4.2. Doing the Same for Previous Tasks
-Now that you have learned how to define a function in a script, do it for:\
+Now that you have learned how to define a function in a script, do it for:
 1. Adding a vector layer with user input from a dialog box
 2. Adding a buffer
 3. Performing an union
@@ -242,7 +250,8 @@ def more_functions(inputs):
 ## Task 5. Selecting Features from Queries
 - **Dataset used:** Umgebung.gpkg
 - **Tools used:** Query Features and Script Editor
-- **Objective:** Now, we have to sieve out, from the impacted and affected habitats, those that are protected species from the others
+- **Description:** Now, we have to sieve out, from the impacted and affected habitats, those that are protected species from the others
+- **Objectives:** Feature query on QGIS, feature query in PyQGIS, adding layers in PyQGIS
 
 #### Task 5.1. Running a Query on the Environment Shapefile Attributes
 Query the attributes of the Environment Shapefile to determine the features that are protected by law\
@@ -282,7 +291,8 @@ QgsProject.instance().addMapLayer(valuable)
 ## Task 6. Stylizing and Cleaning Up
 - **Dataset used:**
 - **Tools used:** Script Editor
-- **Objective**: Stylize the map layers to make results more obvious and clean up the project to make it more readable
+- **Description:** Stylize the map layers to make results more obvious and clean up the project to make it more readable
+- **Objectives:** Various styling tools and functions on QGIS, and then on PyQGIS
 
 #### Task 6.1. Deleting Intermediate Layers
 Some of the intermediate layers can be deleted because they serve no actual analytical purpose
@@ -362,14 +372,26 @@ Can we do even better and create a script that is interactive and uses the user 
 Can we publish these scripts or create something that others can use?
 
 #### Bonus: Creating a Main Script
-1. For the more advanced coders, you might want to create a Class instead of just defining functions, but for the purpose of this workshop, I don't think that it helps in creating cleaner code or better modularity
+1. For the more advanced coders, you might want to create a Class and declaring methods instead of just defining functions, but for the purpose of this workshop, I don't think that it helps in creating cleaner code or better modularity
 2. Otherwise, create a script that does everything with just being called once
-3. Make the script from Bonus 1 interactive, and get the user inputs on file paths, algorithm parameters, etc.
+3. Make the script interactive, and get the user inputs on file paths, algorithm parameters, etc.
 4. Once you are satisfied with that script, you might even want to consider converting it into a plugin so that it can be published and used by others
 
 
 ## Notes for QGIS 3.0.0
 
 ## References, Resources and Additional Help
+* Processing: A Python Framework for the Seamless Integration of Geoprocessing Tools in QGIS by Anita Graser
+    * In-depth development history on Processing Framework
+* Processing GitHub repository by Victor Olaya (developer of Processing)
+* QGIS 2.18 Documentation 
+    * Contains a lot of resources and documentations
+    * Links to tutorials and textbooks like the PyQGIS Cookbook, QGIS Developers Guide
+* QGIS Tutorials by Ujaval Gandhi 
+    * Helpful step by step tutorials on many aspects of QGIS
+* Vast amount of resources, forums and an active and helpful community online
+* Special thanks to helpful developers like Anita Graser and other users on GIS Stack Exchange for answering my questions
+* And of course, the wonderful people at Geometa Lab, HSR
 
 ## Contact
+Kang Zi Jing, author and owner of this GitHub repository: zkang[at]hsr[dot]ch 
