@@ -96,6 +96,8 @@ Now we can add the user input layer into QGIS
 2. If the layer name is saved as something else, you can change it with `env.setName("newName")`
 3. Practice and do the same for the Autobahn layer using the Python console
 
+![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Workflow%20Example%20Images/Task%201.png)
+
 ## Task 2. Adding Buffers to Autobahn Layer
 - **Dataset used:** Autobhan.gpkg
 - **Tools used:** Processing Graphic Modeler, Python Console
@@ -121,7 +123,7 @@ With the Processing Graphic Modeler open, we can now visualize and build Task 2.
 9. Under Autobahn, select your Autobahn vector layer from the drop down menu, under Buffer Distance, type in **20** and under Output Layer Name, type **Autobahn 20** and run it
 10. Let the Model run and after processing, you should see the output vector on your main QGIS window
 
-[Insert photo of the modeler]
+![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Slide%20Images/Graphic%20Modeler%20Example.png)
 
 #### Task 2.3. Recreating the same function using a standalone script
 Now that you visualized your steps, you can now try to translate them into actual Pythonic code on the Python Console\
@@ -143,7 +145,7 @@ autobahn20 = QgsProject.instance().addMapLayer(algoOutput['OUTPUT'])
 autobahn20.setName("Autobahn 20")
 ```
 
-[Insert Buffer Log Example]
+![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Slide%20Images/Buffer%20Log%20Example.png)
 
 #### Task 2.4. Creating 2 more buffers
 Often times, the actual physical space that a highway construction takes up, is smaller than the actual impact that it causes to the environment.\
@@ -186,7 +188,7 @@ Next, we perform the Union algorithm on the result of the previous task, the Inn
 2. You will now have a layer that is the union of all 3 Autobahn buffers
 3. You can see a screenshot of what your project should roughly look like below:
 
-[Insert Task 3 Example]
+![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Slide%20Images/Task%203%20Example.png)
 
 ## Task 4. Refining Code
 - **Dataset used:** Umgebung.gpkg, union result from previous task
@@ -222,7 +224,7 @@ intersect_layers(layerA, layerB, opName)
 ```
 8. Your result should look something like this: 
 
-[Insert task 4 example]
+![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Slide%20Images/Task%204%20Example.png)
 
 #### Task 4.2. Doing the Same for Previous Tasks
 Now that you have learned how to define a function in a script, do it for:
@@ -260,6 +262,8 @@ Query the attributes of the Environment Shapefile to determine the features that
 3. Write the expression for which you want to select queries with, for our case, we are looking for habitats where `"ffh_typ_nr" = 1`, `"geschuetzt_biotop" = 1`, or `"bedeutend_gruendland_type" = 1`
 4. Once you have written the expression, click on `Select Features`, you should have 43 features highlighted
 
+![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Workflow%20Example%20Images/Task%205.1.png)
+
 #### Task 5.2. Translating Query Feature into Pythonic Code
 Now we do what we did in 5.1 using Pythonic code in our script
 
@@ -272,6 +276,9 @@ expr = QgsExpression("\"ffh_typ_nr\"=1 or \"geschuetzt_biotop\" = 1 or \"bedeute
 ```
 it = env.getFeatures(QgsFeatureRequest(expr))
 ```
+
+![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Workflow%20Example%20Images/Task%206.2.png)
+
 
 #### Task 5.3. Adding Vector Layer of Selected Features
 Now we have to create new layers with just the selected features to show which features are actually affected by the Autobahn construction
@@ -364,6 +371,8 @@ Let's rearrange the layers for better visibility by putting the original Autobah
 4. Get a pointer to the parent object of the layer using parent()
 5. Insert the clones into the parent node and remove the original layers using insertChildNode(position, layer) and removeChildNode()
 6. Refresh the map canvas
+
+![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Workflow%20Example%20Images/Task%207.png)
 
 ## Bonus: Interactive and Independent Script
 We have created many different functions to help us achieve our tasks\
