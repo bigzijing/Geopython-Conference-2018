@@ -224,6 +224,8 @@ intersect_layers(layerA, layerB, opName)
 ```
 8. Your result should look something like this: 
 
+![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Workflow%20Example%20Images/Task%205.1.png)
+
 ![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Slide%20Images/Task%204%20Example.png)
 
 #### Task 4.2. Doing the Same for Previous Tasks
@@ -262,7 +264,7 @@ Query the attributes of the Environment Shapefile to determine the features that
 3. Write the expression for which you want to select queries with, for our case, we are looking for habitats where `"ffh_typ_nr" = 1`, `"geschuetzt_biotop" = 1`, or `"bedeutend_gruendland_type" = 1`
 4. Once you have written the expression, click on `Select Features`, you should have 43 features highlighted
 
-![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Workflow%20Example%20Images/Task%205.1.png)
+![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Workflow%20Example%20Images/Task%206.1.png)
 
 #### Task 5.2. Translating Query Feature into Pythonic Code
 Now we do what we did in 5.1 using Pythonic code in our script
