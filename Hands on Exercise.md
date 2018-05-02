@@ -257,7 +257,7 @@ def more_functions(inputs):
 - **Description:** Now, we have to sieve out, from the impacted and affected habitats, those that are protected species from the others
 - **Objectives:** Feature query on QGIS, feature query in PyQGIS, adding layers in PyQGIS
 
-#### Task 5.1. Running a Query on the Environment Shapefile Attributes
+#### Task 5.1. Running a Query on the Environment Vector Layer Attributes
 Query the attributes of the Environment Shapefile to determine the features that are protected by law\
 1. To do this, right click on the Environment layer in the Layers panel, and select Open Attribute Table
 2. On the top menu bar, click the button that says `Select features with an expression`
