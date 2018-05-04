@@ -4,7 +4,7 @@
 A QGIS workshop for the GeoPython Conference 2018
  
 ## Getting started
-1. Download and install QGIS 3.x ([Link to the download page](https://www.qgis.org/en/site/forusers/download.html))
+1. [Download and install QGIS 3.x](https://www.qgis.org/en/site/forusers/download.html) (Only QGIS 3.0 and above is supported because of changes in the update from 2.18 to 3.0
 2. Get the sample data that we will be using from this repository
 3. Fire up QGIS and we're ready! 
  
@@ -20,12 +20,14 @@ To try out our hands on examples, the following is required:
 **Notes:**
 * This repository contains the hands-on problem sets and tasks that we will try out during the workshop. It also contains the suggested solutions, master scripts, and graphic models for the tasks, and problem as a whole.
 * For QGIS <2.99 users, these problem sets are still workable, but do take note that as QGIS upgraded from QGIS 2.18 to QGIS 3.0.0, there are a lot of changes, including the Python syntax to be upgrade from Python 2.6 to Python 3.6
-* It is still possible to follow this workshop in QGIS 2.18, but do make sure that you are aware of the backwards incompatible changes as many methods and functions were made obsolete or renamed. You can see the [version changelog here] (https://qgis.org/api/api_break.html#qgis_api_break_3_0_QgsGeometryAnalyzer)
+* It is still possible to follow this workshop in QGIS 2.18, but do make sure that you are aware of the backwards incompatible changes as many methods and functions were made obsolete or renamed. You can see the [version changelog here](https://qgis.org/api/api_break.html#qgis_api_break_3_0_QgsGeometryAnalyzer)
+* To be more specific and as a disclaimer, it is rather redundant if you are following this workshop using QGIS 2.18, as the LTR version of QGIS would soon be updated to QGIS 3.x, and the workshop here would still be very likely to work in the LTR
    
 ## Getting more sample data
 If you want more sample data or resources to further try out QGIS on your own, look no further:
  
 * [The PyQGIS Programmer's Guide](http://locatepress.com/ppg3)
+* [The QGIS website also has some sample data](http://www.qgis.org)
 * For raster layers to play around with, we can download one of the [Natural Earth rasters](http://www.naturalearthdata.com/downloads/)
 * You can also check out [our Geometa Lab Blog](geometa.tumblr.com) for some posts on QGIS tips and tricks and other tidbits on GIS
  
@@ -52,10 +54,12 @@ import qgis.utils
     * Run Python code and commands on the Python Console
     * Create and use Python plugins
 
-
-## **Task: Perform Geospatial Analysis on Protected Habitats in an Environment**
-* Problem: The construction of an autobahn/expressway will lead to detrimental impact onto the habitats on its environment. analyze the protected habitats that would be affected by the construction
-* Source: This task is based on Task 6 of the course “Introduction to GIS and Digital Cartography” by Claas Leiner, University of Kassel, 2010.
+\
+\
+\
+# **Task: Perform Geospatial Analysis on Protected Habitats in an Environment**
+* Problem: The construction of an autobahn/expressway will lead to detrimental impact onto the habitats on its environment. Analyze the protected habitats that would be affected by the construction.
+* Source: This task is based on Task 6 of the course _Introduction to GIS and Digital Cartography_ by Claas Leiner, University of Kassel, 2010.
 * Adapted to a class for Vector Analysis by Stefan Keller, FS 2017
 * Translated and adapted for QGIS 3.0 and the GeoPython Conference by Kang Zi Jing, 2018
 * The workflow can be found in the repository, here [link to the tutorial course]
@@ -224,8 +228,6 @@ intersect_layers(layerA, layerB, opName)
 ```
 8. Your result should look something like this: 
 
-![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Workflow%20Example%20Images/Task%205.1.png)
-
 ![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Slide%20Images/Task%204%20Example.png)
 
 #### Task 4.2. Doing the Same for Previous Tasks
@@ -376,29 +378,45 @@ Let's rearrange the layers for better visibility by putting the original Autobah
 
 ![Reference](https://github.com/bigzijing/Geopython-Conference-2018/blob/master/Workshop%20Presentation%20Slides/Workflow%20Example%20Images/Task%207.png)
 
-## Bonus: Interactive and Independent Script
+## Task 7. Finishing Up
+- **Dataset used:**
+- **Tools used:** Script Editor
+- **Description:** Finish up and make sure that all your code is in a single script and everything works when you run it!
+- **Objectives:** Finishing touches, making sure all is good
+
+#### Task 7.1. Finishing Touches
+For the last touch, make sure that all your functions and code are all properly ordered and functions properly
+1. Clear the QGIS canvas by typing `QgsProject.instance().clear()`
+2. Run your script once again and make sure that the workflow progresses as intended
+3. If your final results look like the end result, you just created an automated script that helps automate a workflow!
+
+# Bonus: Interactive and Independent Script
 We have created many different functions to help us achieve our tasks\
 Can we do better to join them all into just 1 script entity?\
 Can we do even better and create a script that is interactive and uses the user inputs to automate our tasks?\
 Can we publish these scripts or create something that others can use?
+\
+There are many ways to customize your scripts and workflow processing in QGIS! You may create a Processing Script that is accessible on the Toolbox (not shown here), make it a plugin, run it with Script Runner plugin, or just run it in the Python console. The great thing about flexibility is you have the freedom to do as you please to suit your needs, so practice away!
 
 #### Bonus: Creating a Main Script
-1. For the more advanced coders, you might want to create a Class and declaring methods instead of just defining functions, but for the purpose of this workshop, I don't think that it helps in creating cleaner code or better modularity
-2. Otherwise, create a script that does everything with just being called once
+1. For the more advanced coders, you might want to create a Class and declare methods instead of just defining functions, as in this workshop, we did not go in-depth into classes
+2. Otherwise, finish this script that does everything with just being called once
 3. Make the script interactive, and get the user inputs on file paths, algorithm parameters, etc.
 4. Once you are satisfied with that script, you might even want to consider converting it into a plugin so that it can be published and used by others
 
 
-## Notes for QGIS 3.0.0
+## Notes and Disclaimer
+Note that there is no 'perfect' or 'only' solution when it comes to scripting, and as such, the scripts that were demonstrated and available in this workshop/repository are only for references and to guide you. With that said, always try to maintain good programming practices so that your code is clean, readable and easy to maintain. 
 
 ## References, Resources and Additional Help
-* Processing: A Python Framework for the Seamless Integration of Geoprocessing Tools in QGIS by Anita Graser
+* [Processing: A Python Framework for the Seamless Integration of Geoprocessing Tools in QGIS by Anita Graser](http://www.mdpi.com/2220-9964/4/4/2219/htm)
     * In-depth development history on Processing Framework
-* Processing GitHub repository by Victor Olaya (developer of Processing)
-* QGIS 2.18 Documentation 
+* [Anita Graser's blog](http://anitagraser.com)
+* [Processing GitHub repository by Victor Olaya (developer of Processing)](https://github.com/qgis/QGIS-Processing)
+* [QGIS Testing Documentation](https://docs.qgis.org/testing/en/docs/)
     * Contains a lot of resources and documentations
     * Links to tutorials and textbooks like the PyQGIS Cookbook, QGIS Developers Guide
-* QGIS Tutorials by Ujaval Gandhi 
+* [QGIS Tutorials by Ujaval Gandhi](http://www.qgistutorials.com/en/)
     * Helpful step by step tutorials on many aspects of QGIS
 * Vast amount of resources, forums and an active and helpful community online
 * Special thanks to helpful developers like Anita Graser and other users on GIS Stack Exchange for answering my questions
