@@ -12,3 +12,11 @@ There is also a vast community out there who would be willing and happy to help 
 At the same time, always remember to Google and try to figure out on your own before asking another person!
 
 Have fun programming and godspeed!
+
+|Script Name|Description|
+|---|---|
+|Tasks 1-4.2|Reference script for Tasks 1 to 4.2|
+|Task 5|Reference script for Task 5 - rewriting into functions definition|
+|Master Script Straightforward|Reference script that automates the entire workflow (like a Processing algorithm)
+|Master Script with Info|Reference script that gives information on what is happening|
+|Master Script Model|Reference script that is interactive, and has basic exception and error handling|
