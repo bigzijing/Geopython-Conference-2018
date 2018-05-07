@@ -56,7 +56,7 @@ import qgis.utils
 
 \
 \
-\
+
 # **Task: Perform Geospatial Analysis on Protected Habitats in an Environment**
 * Problem: The construction of an autobahn/expressway will lead to detrimental impact onto the habitats on its environment. Analyze the protected habitats that would be affected by the construction.
 * Source: This task is based on Task 6 of the course _Introduction to GIS and Digital Cartography_ by Claas Leiner, University of Kassel, 2010.
