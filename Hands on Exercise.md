@@ -55,7 +55,6 @@ import qgis.utils
     * Create and use Python plugins
 
 \
-\
 
 # **Task: Perform Geospatial Analysis on Protected Habitats in an Environment**
 * Problem: The construction of an autobahn/expressway will lead to detrimental impact onto the habitats on its environment. Analyze the protected habitats that would be affected by the construction.
